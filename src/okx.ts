@@ -1,6 +1,11 @@
 "use client";
 
-import { OKXUniversalConnectUI, THEME, type Account, type SessionNamespace } from "@okxconnect/ui";
+import {
+	OKXUniversalConnectUI,
+	THEME,
+	type Account,
+	type SessionNamespace,
+} from "@okxconnect/ui";
 import { useEffect, useState } from "react";
 import { base } from "viem/chains";
 
@@ -36,7 +41,7 @@ export const getOkxProvider = async () => {
 
 	universalUi = await universalUiPromise;
 
-  console.log('universalUi', universalUi)
+	console.log("universalUi", universalUi);
 	return universalUi;
 };
 
@@ -88,16 +93,16 @@ export const getAccounts = async (): Promise<string[]> => {
 };
 
 export const parseAccount = (sessionAccountString: string) => {
-  const [namespace, chainId, account] = sessionAccountString.split(':')
-  return account
-}
+	const [namespace, chainId, account] = sessionAccountString.split(":");
+	return account;
+};
 
 export const useOkxAccount = () => {
 	const [account, setAccount] = useState<string | null>(null);
 
 	useEffect(() => {
 		getAccounts().then((accounts) => {
-      console.log('accounts', accounts)
+			console.log("accounts", accounts);
 			if (accounts.length > 0) {
 				setAccount(accounts[0]);
 			}
@@ -107,23 +112,25 @@ export const useOkxAccount = () => {
 			console.log("listen events");
 			provider.events.on("connect", (data: any) => {
 				console.log("connect", data);
-        const account = parseAccount(data.session.namespaces.eip155.accounts[0])
-        setAccount(account)
+				const account = parseAccount(
+					data.session.namespaces.eip155.accounts[0],
+				);
+				setAccount(account);
 			});
 			provider.events.on("session_update", (session: any) => {
 				console.log("session_update", JSON.stringify(session));
 			});
 
-			provider.on("display_uri", (uri) => {
+			provider.on("display_uri", (uri: any) => {
 				console.log("display_uri", uri);
 			});
 
-			provider.on("session_delete", ({ topic }) => {
+			provider.on("session_delete", ({ topic }: any) => {
 				console.log("session_delete", topic, "session", provider.session);
 				setAccount(null);
 			});
 
-      // 同 provider.on("session_delete"
+			// 同 provider.on("session_delete"
 			// provider.events.on("disconnect", ({ topic }) => {
 			// 	console.log("events disconnect", topic, "session", provider.session);
 			// 	setAccount(null);
