@@ -1,18 +1,15 @@
-import { OKXUniversalConnectUI, THEME } from "@okxconnect/ui";
+import {
+	OKXUniversalConnectUI,
+	THEME,
+	type OKXConnectUiOptions,
+	type UniversalProviderOpts,
+} from "@okxconnect/ui";
 import {
 	ChainNotConfiguredError,
 	type Connector,
 	createConnector,
 	type CreateConnectorFn,
-	extractRpcUrls,
 } from "@wagmi/core";
-import type {
-	Compute,
-	ExactPartial,
-	OneOf,
-	RemoveUndefined,
-	UnionCompute,
-} from "@wagmi/core/internal";
 import {
 	type AddEthereumChainParameter,
 	type Address,
@@ -30,10 +27,13 @@ import {
 	withTimeout,
 } from "viem";
 
+type OKXUniversalConnectUiCreateOptions = UniversalProviderOpts &
+	OKXConnectUiOptions;
+
 let connectorFn: CreateConnectorFn | undefined;
 
 okxWallet.type = "okxWallet" as const;
-export function okxWallet(parameters = {}) {
+export function okxWallet(options?: OKXUniversalConnectUiCreateOptions) {
 	type Provider = OKXUniversalConnectUI;
 	type Properties = {
 		onConnect(connectInfo: ProviderConnectInfo): void;
@@ -200,10 +200,10 @@ export function okxWallet(parameters = {}) {
 				// 	return { OKXUniversalConnectUI, THEME };
 				// })();
 
-				return OKXUniversalConnectUI.init({
+				const defaultOptions: OKXUniversalConnectUiCreateOptions = {
 					dappMetaData: {
-						icon: "https://static.okx.com/cdn/assets/imgs/247/58E63FEA47A2B7D7.png",
-						name: "OKX WalletConnect UI Demo",
+						icon: "https://app.cygnus.finance/favicon.svg",
+						name: "Cygnus Finance",
 					},
 					actionsConfiguration: {
 						returnStrategy: "tg://resolve",
@@ -214,7 +214,11 @@ export function okxWallet(parameters = {}) {
 					uiPreferences: {
 						theme: THEME.DARK,
 					},
-				}).catch((e) => {
+				};
+
+				return OKXUniversalConnectUI.init(
+					Object.assign(defaultOptions, options || {}),
+				).catch((e) => {
 					// 服务端运行会出错，document is not defined，此时直接捕获忽略
 					return undefined;
 				});
