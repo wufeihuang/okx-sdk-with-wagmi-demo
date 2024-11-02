@@ -1,9 +1,3 @@
-// import type {
-// 	MetaMaskSDK,
-// 	MetaMaskSDKOptions,
-// 	RPC_URLS_MAP,
-// 	SDKProvider,
-// } from "@metamask/sdk";
 import { OKXUniversalConnectUI, THEME } from "@okxconnect/ui";
 import {
 	ChainNotConfiguredError,
@@ -220,6 +214,9 @@ export function okxWallet(parameters = {}) {
 					uiPreferences: {
 						theme: THEME.DARK,
 					},
+				}).catch((e) => {
+					// 服务端运行会出错，document is not defined，此时直接捕获忽略
+					return undefined;
 				});
 			}
 
