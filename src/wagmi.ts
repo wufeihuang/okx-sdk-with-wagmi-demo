@@ -1,10 +1,11 @@
 import { http, cookieStorage, createConfig, createStorage } from "wagmi";
-import { mainnet, sepolia } from "wagmi/chains";
-import { coinbaseWallet, injected, walletConnect } from "wagmi/connectors";
+import { mainnet, base } from "wagmi/chains";
+// import { coinbaseWallet, injected, walletConnect } from "wagmi/connectors";
+import { okxWallet } from "./okx-connector";
 
 export function getConfig() {
 	return createConfig({
-		chains: [mainnet, sepolia],
+		chains: [base],
 		// connectors: [
 		// 	injected(),
 		// 	coinbaseWallet(),
@@ -12,13 +13,13 @@ export function getConfig() {
 		// 		projectId: process.env.NEXT_PUBLIC_WC_PROJECT_ID as string,
 		// 	}),
 		// ],
+		connectors: [okxWallet()],
 		storage: createStorage({
 			storage: cookieStorage,
 		}),
 		ssr: true,
 		transports: {
-			[mainnet.id]: http(),
-			[sepolia.id]: http(),
+			[base.id]: http(),
 		},
 	});
 }

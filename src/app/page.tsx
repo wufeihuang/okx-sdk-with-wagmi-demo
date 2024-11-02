@@ -1,6 +1,6 @@
 "use client";
 
-import { connectWallet, disconnectWallet, useOkxAccount } from "@/okx";
+// import { connectWallet, disconnectWallet, useOkxAccount } from "@/okx";
 import { useAccount, useConnect, useDisconnect } from "wagmi";
 
 function App() {
@@ -8,10 +8,11 @@ function App() {
 	const { connectors, connect, status, error } = useConnect();
 	const { disconnect } = useDisconnect();
 
-	const okxAccount = useOkxAccount();
+	// const okxAccount = useOkxAccount();
 
+	console.log("connectors", connectors);
 	console.log("account", account.address);
-	console.log("okxAccount", okxAccount);
+	// console.log("okxAccount", okxAccount);
 
 	return (
 		<>
@@ -48,7 +49,7 @@ function App() {
 				<div>{error?.message}</div>
 			</div>
 
-			<hr />
+			{/* <hr />
 			<div>
 				<h2>Test</h2>
 				<button onClick={connectWallet} type="button">
@@ -63,7 +64,7 @@ function App() {
 						{okxAccount || "-"}
 					</span>
 				</div>
-			</div>
+			</div> */}
 		</>
 	);
 }

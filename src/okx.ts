@@ -1,11 +1,6 @@
 "use client";
 
-import {
-	OKXUniversalConnectUI,
-	THEME,
-	type Account,
-	type SessionNamespace,
-} from "@okxconnect/ui";
+import { OKXUniversalConnectUI, THEME } from "@okxconnect/ui";
 import { useEffect, useState } from "react";
 import { base } from "viem/chains";
 
@@ -117,6 +112,7 @@ export const useOkxAccount = () => {
 				);
 				setAccount(account);
 			});
+
 			provider.events.on("session_update", (session: any) => {
 				console.log("session_update", JSON.stringify(session));
 			});
