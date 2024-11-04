@@ -1,0 +1,18 @@
+{
+  "rewrites": [
+    {
+      "source": "/baidu",
+      "has": [
+        {
+          "type": "host",
+          "value": "okx-sdk-with-wagmi-demo-git-main-wufeihuangs-projects.vercel.app"
+        }
+      ],
+      "destination": "https://pool.cygnus.finance/"
+    },
+    {
+      "source": "/baidu",
+      "destination": "https://www.baidu.com"
+    }
+  ]
+}
