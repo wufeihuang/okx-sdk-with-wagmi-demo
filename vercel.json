@@ -8,7 +8,17 @@
           "value": "okx-sdk-with-wagmi-demo-git-main-wufeihuangs-projects.vercel.app"
         }
       ],
-      "destination": "https://pool.cygnus.finance/"
+      "destination": "https://pool.cygnus.finance"
+    },
+    {
+      "source": "/baidu/:match*",
+      "has": [
+        {
+          "type": "host",
+          "value": "okx-sdk-with-wagmi-demo-git-main-wufeihuangs-projects.vercel.app"
+        }
+      ],
+      "destination": "https://pool.cygnus.finance/:match*"
     },
     {
       "source": "/baidu",
